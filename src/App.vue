@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <IntroAnimation />
     <header class="main-header">
       <nav>
         <!-- Hamburger Menu Button -->
@@ -179,6 +180,7 @@
 
 <script setup>
 import { ref } from "vue";
+import IntroAnimation from "./components/IntroAnimation.vue";
 import HeroSection from "./components/HeroSection.vue";
 import ProposalsSection from "./components/ProposalsSection.vue";
 import StoriesSection from "./components/StoriesSection.vue";

@@ -1,20 +1,22 @@
 <template>
-  <section class="hero-section">
+  <section class="hero-section" id="inicio">
     <div class="hero-content">
       <img
         src="../assets/home.png"
         alt="Candidato Felipe Coaquira Choque"
         class="hero-image"
+        v-scroll-reveal="'fade-right'"
       />
-      <div class="hero-text fade-in">
+      <div class="hero-text" v-scroll-reveal="'fade-left'">
         <h1 class="highlight-text font-effect-shadow-multiple">
           POR UN MUNICIPIO CON DESARROLLO, IDENTIDAD Y CULTURA
         </h1>
-        <h2 class="fade-in delay-1">FELIPE COAQUIRA CHOQUE</h2>
-        <h3 class="fade-in delay-2">ALCALDE DE TARABUCO</h3>
-        <p class="fade-in delay-3">
+        <h2>FELIPE COAQUIRA CHOQUE</h2>
+        <h3>ALCALDE DE TARABUCO</h3>
+        <p>
           Con unidad y trabajo construiremos el municipio que soñamos
         </p>
+        <a href="#proposals" class="cta-button">Conoce Nuestras Propuestas</a>
       </div>
     </div>
   </section>
@@ -119,47 +121,23 @@
   color: #f3e9e9;
 }
 
-/* Animations */
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+.cta-button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 1rem 2rem;
+  background-color: #34c408;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(52, 196, 8, 0.4);
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-@keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: #76ff03;
-  }
-}
-
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.8s ease-out forwards;
-}
-
-.delay-1 {
-  animation-delay: 2s;
-}
-.delay-2 {
-  animation-delay: 2.5s;
-}
-.delay-3 {
-  animation-delay: 3s;
-}
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.cta-button:hover {
+  background-color: #2da807;
+  transform: translateY(-2px);
 }
 
 @media (min-width: 768px) {

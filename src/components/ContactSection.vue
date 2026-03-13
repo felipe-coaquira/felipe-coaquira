@@ -1,9 +1,11 @@
 <template>
   <section class="contact-section" id="contact">
-    <h2 class="section-title">
-      {{ isMobile ? "SIGUENOS" : "Siguenos en nuestras redes sociales" }}
-    </h2>
-    <div class="contact-links">
+    <div style="text-align: center;">
+      <h2 class="section-title" v-scroll-reveal>
+        {{ isMobile ? "SIGUENOS" : "Siguenos en nuestras redes sociales" }}
+      </h2>
+    </div>
+    <div class="contact-links" v-scroll-reveal="'fade-up'">
       <div class="content-facebook">
         <iframe
           src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1391850115751679%2F&show_text=true&width=560&t=0"

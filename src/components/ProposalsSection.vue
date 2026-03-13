@@ -1,11 +1,14 @@
 <template>
   <section class="proposals-section" id="proposals">
-    <h2 class="section-title">Nuestras Propuestas</h2>
+    <div style="text-align: center;">
+      <h2 class="section-title" v-scroll-reveal>Nuestras Propuestas</h2>
+    </div>
     <div class="proposals-grid">
       <div
         v-for="(category, index) in proposals"
         :key="index"
         class="proposal-card"
+        v-scroll-reveal="'fade-up'"
       >
         <h3>{{ category.title }}</h3>
         <ul>

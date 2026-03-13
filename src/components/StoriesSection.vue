@@ -1,8 +1,10 @@
 <template>
   <section class="stories-section" id="stories">
-    <h2 class="section-title">Recorridos y Visitas</h2>
+    <div style="text-align: center;">
+      <h2 class="section-title" v-scroll-reveal>Recorridos y Visitas</h2>
+    </div>
     <div class="stories-container">
-      <div v-for="(image, index) in images" :key="index" class="story-card">
+      <div v-for="(image, index) in images" :key="index" class="story-card" v-scroll-reveal="'fade-up'">
         <img :src="image.src" :alt="image.alt" />
         <div class="story-info">
           <p>{{ image.description }}</p>

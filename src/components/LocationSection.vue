@@ -1,8 +1,10 @@
 <template>
   <section class="location-section" id="location">
-    <h2 class="section-title">Nuestra Ubicación</h2>
-    <p>Visita nuestra Casa de Campaña</p>
-    <div class="map-container">
+    <div style="text-align: center;">
+      <h2 class="section-title" v-scroll-reveal>Nuestra Ubicación</h2>
+    </div>
+    <p v-scroll-reveal="'fade-up'">Visita nuestra Casa de Campaña</p>
+    <div class="map-container" v-scroll-reveal="'fade-up'">
       <iframe
         src="https://www.google.com/maps?q=-19.18328099,-64.91482187&t=k&z=17&output=embed"
         width="100%"
