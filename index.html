@@ -10,12 +10,30 @@
       href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple"
     />
     <title>Felipe Coaquira Choque</title>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-0GYDRQ8MX8"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-0GYDRQ8MX8");
+    </script>
   </head>
   <body>
     <!-- Facebook SDK for rendering videos cleanly without iframe unload errors -->
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v19.0"></script>
-    
+    <script
+      async
+      defer
+      crossorigin="anonymous"
+      src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v19.0"
+    ></script>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
