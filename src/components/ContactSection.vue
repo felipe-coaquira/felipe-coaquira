@@ -1,12 +1,29 @@
 <template>
   <section class="contact-section" id="contact">
-    <div style="text-align: center;">
+    <div style="text-align: center">
       <h2 class="section-title" v-scroll-reveal>
         {{ isMobile ? "SIGUENOS" : "Siguenos en nuestras redes sociales" }}
       </h2>
     </div>
     <div class="contact-links" v-scroll-reveal="'fade-up'">
       <div class="content-facebook">
+        <iframe
+          src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F798074809463618%2F&show_text=true&width=560&t=0"
+          width="560"
+          :height="isMobile ? 334 : 429"
+          style="border: none; overflow: hidden"
+          scrolling="no"
+          frameborder="0"
+          allowfullscreen="true"
+          loading="lazy"
+          allow="
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            picture-in-picture;
+            web-share;
+          "
+        ></iframe>
         <iframe
           src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1391850115751679%2F&show_text=true&width=560&t=0"
           width="560"
@@ -15,6 +32,7 @@
           scrolling="no"
           frameborder="0"
           allowfullscreen="true"
+          loading="lazy"
           allow="
             autoplay;
             clipboard-write;
@@ -22,7 +40,6 @@
             picture-in-picture;
             web-share;
           "
-          allowFullScreen="true"
         ></iframe>
         <iframe
           src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F2027644991434636%2F&show_text=true&width=560&t=0"
@@ -32,6 +49,7 @@
           scrolling="no"
           frameborder="0"
           allowfullscreen="true"
+          loading="lazy"
           allow="
             autoplay;
             clipboard-write;
@@ -39,7 +57,6 @@
             picture-in-picture;
             web-share;
           "
-          allowFullScreen="true"
         ></iframe>
       </div>
       <div class="links">
@@ -126,7 +143,7 @@ const { isMobile } = useMobile();
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: rem;
+  gap: 1rem;
 }
 
 .social-link {
@@ -135,39 +152,41 @@ const { isMobile } = useMobile();
   gap: 0.5rem;
   padding: 1rem 2rem;
   font-size: 1rem;
-  color: #222;
-  background-color: #76ff03;
   border-radius: 50px;
   text-decoration: none;
   font-weight: bold;
-  transition:
-    transform 0.3s,
-    box-shadow 0.3s;
+  transition: transform 0.3s;
 }
 
 .social-link:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(118, 255, 3, 0.4);
 }
 
 .social-link svg {
   width: 24px;
   height: 24px;
 }
-
-.social-link.facebook:hover {
+.social-link.facebook {
   background-color: #1877f2;
   color: #fff;
 }
-
-.social-link.tiktok:hover {
+.social-link.facebook:hover {
+  background-color: #1652a1;
+}
+.social-link.tiktok {
   background-color: #000;
   color: #fff;
 }
+.social-link.tiktok:hover {
+  background-color: #111010;
+}
 
-.social-link.whatsapp:hover {
-  background-color: #25d366;
+.social-link.whatsapp {
+  background-color: #13c052;
   color: #fff;
+}
+.social-link.whatsapp:hover {
+  background-color: #49c978;
 }
 
 .content-facebook {

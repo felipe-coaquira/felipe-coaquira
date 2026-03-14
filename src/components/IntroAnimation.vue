@@ -1,15 +1,10 @@
 <template>
-  <div v-if="showIntro" class="intro-overlay" :class="{ 'fade-out': fadingOut }">
-    <div class="intro-content">
-      <svg
-        class="checkmark-svg"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 52 52"
-      >
-        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
-        <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-      </svg>
-      <h1 class="intro-text" :class="{ 'show-text': showText }">Vota por Felipe</h1>
+  <div v-if="showIntro" class="intro-overlay bg-fade-out" :class="{ 'fade-out': fadingOut }">
+    <div class="intro-content" :class="{ 'scale-up': scalingUp }">
+      <h1 class="typewriter-text">{{ displayedText }}<span class="cursor" :class="{ 'hide-cursor': cursorHidden }"></span></h1>
+      <div class="progress-container">
+        <div class="progress-bar" :style="{ width: progress + '%' }"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,30 +13,50 @@
 import { ref, onMounted } from 'vue';
 
 const showIntro = ref(false);
-const showText = ref(false);
 const fadingOut = ref(false);
+const scalingUp = ref(false);
+
+const fullText = "Vota por Felipe Quaquira 👍🏻";
+const displayedText = ref("");
+const cursorHidden = ref(false);
+const progress = ref(0);
 
 onMounted(() => {
-  const introShown = localStorage.getItem('introShown');
-  if (!introShown) {
-    showIntro.value = true;
-    
-    // Show text after the checkmark finishes drawing
-    setTimeout(() => {
-      showText.value = true;
-    }, 1000); // Checkmark takes about 1s
-
-    // Start fade out after text has been visible
-    setTimeout(() => {
-      fadingOut.value = true;
-      localStorage.setItem('introShown', 'true');
-    }, 2500); // 1s check + 1.5s reading time
-
-    // Remove from DOM
-    setTimeout(() => {
-      showIntro.value = false;
-    }, 3300); // 2500 timeout + 800ms fadeOut CSS
-  }
+  showIntro.value = true;
+  
+  // Typing effect
+  let currentIndex = 0;
+  const totalLength = fullText.length;
+  
+  const typingInterval = setInterval(() => {
+    if (currentIndex < totalLength) {
+      // Handle surrogate pairs roughly (the emoji is 2 characters)
+      const char = fullText.codePointAt(currentIndex);
+      const charStr = String.fromCodePoint(char);
+      displayedText.value += charStr;
+      currentIndex += charStr.length;
+      
+      progress.value = Math.min((currentIndex / totalLength) * 100, 100);
+    } else {
+      clearInterval(typingInterval);
+      
+      // Wait before scaling out
+      setTimeout(() => {
+        scalingUp.value = true;
+        cursorHidden.value = true;
+        
+        // Start fade out shortly after starting to scale up
+        setTimeout(() => {
+          fadingOut.value = true;
+          
+          // Remove from DOM when fade out is done
+          setTimeout(() => {
+            showIntro.value = false;
+          }, 600);
+        }, 400); // Wait 400ms into the scale animation to start fading out
+      }, 1000);
+    }
+  }, 70); // 70ms per character
 });
 </script>
 
@@ -52,13 +67,36 @@ onMounted(() => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #f5f5f5; /* matches app background */
+  /* Dark high-contrast background with initial opacity */
+  background-color: rgba(26, 26, 26, 0); 
   z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 1;
   transition: opacity 0.8s ease-out;
+}
+
+.intro-overlay.bg-fade-out {
+  animation: fadeOutBg 4s ease-out forwards;
+}
+
+@keyframes fadeOutBg {
+  0% {
+    background-color: rgba(26, 26, 26, 1);
+  }
+  40% {
+    background-color: rgba(26, 26, 26, 0.8);
+  }
+  60% {
+    background-color: rgba(26, 26, 26, 0.6);
+  }
+  80% {
+    background-color: rgba(26, 26, 26, 0.4);
+  }
+  100% {
+    background-color: rgba(26, 26, 26, 0);
+  }
 }
 
 .intro-overlay.fade-out {
@@ -68,73 +106,62 @@ onMounted(() => {
 
 .intro-content {
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 0 2rem;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.checkmark-svg {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  display: block;
-  stroke-width: 4;
-  stroke: #34c408; /* User's theme green */
-  stroke-miterlimit: 10;
-  box-shadow: inset 0px 0px 0px #34c408;
-  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+.intro-content.scale-up {
+  transform: scale(3); /* Grow larger smoothly */
 }
 
-.checkmark-circle {
-  stroke-dasharray: 166;
-  stroke-dashoffset: 166;
-  stroke-width: 4;
-  stroke-miterlimit: 10;
-  stroke: #34c408;
-  fill: none;
-  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+.progress-container {
+  width: 100%;
+  max-width: 400px;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin: 1.5rem auto 0;
+  overflow: hidden;
 }
 
-.checkmark-check {
-  transform-origin: 50% 50%;
-  stroke-dasharray: 48;
-  stroke-dashoffset: 48;
-  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+.progress-bar {
+  height: 100%;
+  background-color: #34c408;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(52, 196, 8, 0.6);
+  transition: width 0.1s linear;
 }
 
-.intro-text {
-  margin-top: 2rem;
-  font-family: "Rancho", serif;
-  font-size: 3rem;
-  color: #1a1a1a;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+.typewriter-text {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0;
+  text-shadow: 0 0 15px rgba(52, 196, 8, 0.6), 0 0 30px rgba(52, 196, 8, 0.4);
 }
 
-.intro-text.show-text {
-  opacity: 1;
-  transform: translateY(0);
+.cursor {
+  display: inline-block;
+  width: 0.1em;
+  height: 1em;
+  background-color: #34c408;
+  margin-left: 5px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
 }
 
-@keyframes stroke {
-  100% {
-    stroke-dashoffset: 0;
-  }
+.cursor.hide-cursor {
+  display: none;
 }
 
-@keyframes scale {
+@keyframes blink {
   0%, 100% {
-    transform: none;
+    opacity: 1;
   }
   50% {
-    transform: scale3d(1.1, 1.1, 1);
-  }
-}
-
-@keyframes fill {
-  100% {
-    box-shadow: inset 0px 0px 0px 30px rgba(52, 196, 8, 0.1);
+    opacity: 0;
   }
 }
 </style>

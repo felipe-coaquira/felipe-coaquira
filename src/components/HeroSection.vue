@@ -13,9 +13,7 @@
         </h1>
         <h2>FELIPE COAQUIRA CHOQUE</h2>
         <h3>ALCALDE DE TARABUCO</h3>
-        <p>
-          Con unidad y trabajo construiremos el municipio que soñamos
-        </p>
+        <p>Con unidad y trabajo construiremos el municipio que soñamos</p>
         <a href="#proposals" class="cta-button">Conoce Nuestras Propuestas</a>
       </div>
     </div>
@@ -132,7 +130,9 @@
   font-size: 1.1rem;
   border-radius: 50px;
   box-shadow: 0 4px 15px rgba(52, 196, 8, 0.4);
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .cta-button:hover {
@@ -160,6 +160,13 @@
 
   .hero-text h1 {
     font-size: 2.2rem;
+  }
+}
+@media (max-width: 768px) {
+  .cta-button {
+    font-size: small;
+    margin-top: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
   }
 }
 </style>
