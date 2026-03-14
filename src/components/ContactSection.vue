@@ -6,58 +6,25 @@
       </h2>
     </div>
     <div class="contact-links" v-scroll-reveal="'fade-up'">
-      <div class="content-facebook">
-        <iframe
-          src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F798074809463618%2F&show_text=true&width=560&t=0"
-          width="560"
-          :height="isMobile ? 334 : 429"
-          style="border: none; overflow: hidden"
-          scrolling="no"
-          frameborder="0"
-          allowfullscreen="true"
-          loading="lazy"
-          allow="
-            autoplay;
-            clipboard-write;
-            encrypted-media;
-            picture-in-picture;
-            web-share;
-          "
-        ></iframe>
-        <iframe
-          src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1391850115751679%2F&show_text=true&width=560&t=0"
-          width="560"
-          :height="isMobile ? 334 : 429"
-          style="border: none; overflow: hidden"
-          scrolling="no"
-          frameborder="0"
-          allowfullscreen="true"
-          loading="lazy"
-          allow="
-            autoplay;
-            clipboard-write;
-            encrypted-media;
-            picture-in-picture;
-            web-share;
-          "
-        ></iframe>
-        <iframe
-          src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F2027644991434636%2F&show_text=true&width=560&t=0"
-          width="560"
-          :height="isMobile ? 334 : 429"
-          style="border: none; overflow: hidden"
-          scrolling="no"
-          frameborder="0"
-          allowfullscreen="true"
-          loading="lazy"
-          allow="
-            autoplay;
-            clipboard-write;
-            encrypted-media;
-            picture-in-picture;
-            web-share;
-          "
-        ></iframe>
+      <div class="content-facebook" ref="fbContainer">
+        <div 
+          class="fb-video" 
+          data-href="https://www.facebook.com/reel/798074809463618/" 
+          data-width="560" 
+          data-show-text="true"
+        ></div>
+        <div 
+          class="fb-video" 
+          data-href="https://www.facebook.com/reel/1391850115751679/" 
+          data-width="560" 
+          data-show-text="true"
+        ></div>
+        <div 
+          class="fb-video" 
+          data-href="https://www.facebook.com/reel/2027644991434636/" 
+          data-width="560" 
+          data-show-text="true"
+        ></div>
       </div>
       <div class="links">
         <a
@@ -119,8 +86,21 @@
   </section>
 </template>
 <script setup>
+import { onMounted } from 'vue';
 import { useMobile } from "../composable/useMobile";
 const { isMobile } = useMobile();
+
+onMounted(() => {
+  // If Facebook SDK is loaded, dynamically render the fb-video elements
+  if (window.FB) {
+    window.FB.XFBML.parse();
+  } else {
+    // If not loaded yet, wait for it
+    window.fbAsyncInit = function() {
+      FB.init({ xfbml: true, version: 'v19.0' });
+    };
+  }
+});
 </script>
 <style scoped>
 .contact-section {
