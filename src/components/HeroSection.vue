@@ -2,7 +2,7 @@
   <section class="hero-section" id="inicio">
     <div class="hero-content">
       <img
-        src="../assets/home.png"
+        src="../assets/home.webp"
         alt="Candidato Felipe Coaquira Choque"
         class="hero-image"
         v-scroll-reveal="'fade-right'"
